@@ -1,0 +1,54 @@
+#Escribir un programa que pregunte al usuario su edad y muestre por pantalla si es mayor de #edad o no.
+
+.data
+texto_0: .asciiz "\nCual es su edad?\n"
+texto_1: .asciiz "\nSi puede tributar\n"
+texto_2: .asciiz "\nNo puede tributar\n"
+texto_3: .asciiz "\nCual es su ingreso?\n"
+
+.text
+main:
+li $v0, 4
+la $a0, texto_0
+syscall
+
+li $v0, 5
+syscall
+move $t1, $v0
+li $t2, 17
+
+bge $t1, $t2, LABEL_IF 
+
+LABEL_ELSE:
+	la $a0, texto_2
+	b END_LABEL_IF
+
+LABEL_IF:
+	la $a0, texto_1
+
+END_LABEL_IF:
+	li $v0, 4
+	syscall
+
+li $v0, 4
+la $a0, texto_3
+syscall
+
+li $v0, 5
+syscall
+move $t3, $v0
+li $t4, 999
+
+bge $t3, $t4, LABEL_IF 
+
+LABEL_ELSE:
+	la $a0, texto_2
+	b END_LABEL_IF
+
+LABEL_IF:
+	la $a0, texto_1
+
+END_LABEL_IF:
+	li $v0, 4
+	syscall
+jr $ra

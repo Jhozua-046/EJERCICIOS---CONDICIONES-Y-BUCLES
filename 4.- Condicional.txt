@@ -1,0 +1,19 @@
+.data
+
+texto_1: .asciiz "\nIngrese el numero: "
+texto_2: .asciiz "\nEs par\n"
+texto_3: .asciiz "\nEs impar\n"
+
+.text
+main:
+li $v0, 4
+la $a0, texto_1
+syscall
+
+li $v0, 5
+syscall
+move $t1, $v0
+
+
+
+jr $ra

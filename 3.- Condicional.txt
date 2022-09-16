@@ -1,0 +1,48 @@
+.data
+    texto_0: .asciiz "\nIngrese el primer numero: "
+    texto_1: .asciiz "\nIngrese el segundo numero: "
+    texto_2: .asciiz "\nLa division es: "
+    texto_3: .asciiz "\nHay un error\n"
+
+.text
+
+main:
+li $v0, 4
+la $a0, texto_0 
+syscall
+
+li $v0, 5
+syscall
+move $t1, $v0
+
+li $v0, 4
+la $a0, texto_1
+syscall
+
+li $v0, 5
+syscall
+move $t2, $v0
+$t3, 1
+
+bge $t3, $t2, LABEL_IF 
+
+LABEL_ELSE:
+	la $a0, texto_3
+	b END_LABEL_IF
+
+LABEL_IF:
+	div $t6, $t1, $t2
+
+	li $v0, 4
+	la $a0, texto_2
+	syscall
+ 
+	li $v0, 1
+	move $a0, $t6
+	syscall
+
+END_LABEL_IF:
+	li $v0, 10
+	syscall
+
+jr $ra

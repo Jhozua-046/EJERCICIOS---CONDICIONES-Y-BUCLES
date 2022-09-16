@@ -1,0 +1,23 @@
+.data
+	text_01: .asciiz "\nIngrese la palabra: "
+	buffer: .space 20
+
+.text
+main:
+	li $a1, 10
+	li $v0, 8
+	la $a0, buffer
+	syscall
+	
+	li $t1, 0
+	li $t2, 10
+	Loop:
+		beq $t2,$t1, Exit
+		li $v0, 4
+		la $a0, buffer
+		syscall
+
+		add $t1, $t1, 1
+		j Loop
+	Exit:
+jr $ra

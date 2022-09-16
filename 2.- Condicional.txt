@@ -1,0 +1,36 @@
+#Escribir un programa que pregunte al usuario su edad y muestre por pantalla si es mayor de #edad o no.
+
+.data
+	texto_0: .asciiz "\nCual es su contraseña\n"
+	texto_1: .asciiz "\nContraseña aceptada\n"
+	texto_2: .asciiz "\nContraseñada rechazada\n"
+	buffer: . space 20
+.text
+main:
+li $v0, 4
+la $a0, texto_0
+syscall
+
+li $a1, 10
+li $v0, 8
+la $a0, buffer
+syscall
+move $t1, $v0
+
+li $t2, 'contraseña'
+
+bge $t1, $t2, LABEL_IF 
+
+LABEL_ELSE:
+	la $a0, texto_2
+	b END_LABEL_IF
+
+LABEL_IF:
+	la $a0, texto_1
+
+END_LABEL_IF:
+	li $v0, 4
+	syscall
+
+
+jr $ra
